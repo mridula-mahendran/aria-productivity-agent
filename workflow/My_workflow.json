@@ -232,6 +232,30 @@
           "name": "SerpAPI account"
         }
       }
+    },
+    {
+      "parameters": {
+        "fromEmail": "mridula.mahendran@gmail.com",
+        "toEmail": "={{ $('On form submission').item.json['Your Email'] }}",
+        "subject": "=🌟 ARIA Daily Briefing - {{ $('On form submission').item.json['Your Name'] }}",
+        "html": "=<h1>🤖 Good morning, {{ $('On form submission').item.json['Your Name'] }}!</h1>\n<h2>📊 Controller Analysis</h2>\n<p>{{ $('Controller Agent').item.json.output }}</p>\n<h2>🔴 Prioritized Tasks</h2>\n<p>{{ $('Prioritization Agent').item.json.output }}</p>\n<h2>🔍 Research Findings</h2>\n<p>{{ $('Research Agent').item.json.output }}</p>\n<br>\n<p>Have a productive day! 🚀</p>\n<p><em>Sent by ARIA - Your Adaptive Routine Intelligence Assistant</em></p>\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1300,
+        0
+      ],
+      "id": "6e1ba455-dc38-4ff7-b24e-23c69ccd2452",
+      "name": "Send Email",
+      "webhookId": "e1a10ca4-f42f-4489-a702-97b7a427434a",
+      "credentials": {
+        "smtp": {
+          "id": "62R0n27guZYU4nc8",
+          "name": "SMTP account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -356,13 +380,24 @@
           }
         ]
       ]
+    },
+    "Research Agent": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "e566b527-bdd8-472a-b87d-ebe6ae1dff1a",
+  "versionId": "ab227eef-6196-4240-916b-0db64964ecf9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "b8684394eb0d3c2e2b2c9de5ea7ee7b3cfdee0a0a3ed4b35b8bb92fe5af090d5"
