@@ -1,0 +1,54 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "ARIA Daily Task Planner",
+        "formDescription": "Enter your tasks for today and ARIA will prioritize, research, and build your perfect daily schedule.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Your Tasks",
+              "fieldType": "textarea",
+              "placeholder": "e.g. Finish report, Email professor, Study for exam",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your Name",
+              "placeholder": "e.g. John, Taylor",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your Email",
+              "fieldType": "email",
+              "placeholder": "e.g. john@email.com",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a2a0919a-3c1f-4b0a-ba0b-599a98c09930",
+      "name": "On form submission",
+      "webhookId": "1ec471b6-bd0c-4b91-9b22-e1ff17ec8c1a"
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2ca3288f-883a-4a3f-a88f-e1c37995ba7f",
+  "meta": {
+    "instanceId": "b8684394eb0d3c2e2b2c9de5ea7ee7b3cfdee0a0a3ed4b35b8bb92fe5af090d5"
+  },
+  "id": "mqOzVjS0Z1yLdhXg",
+  "tags": []
+}
