@@ -1,5 +1,5 @@
 {
-  "name": "My workflow",
+  "name": "ARIA",
   "nodes": [
     {
       "parameters": {
@@ -259,7 +259,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const controllerOutput = $('Controller Agent').item.json.output || '';\nconst prioritizationOutput = $('Prioritization Agent').item.json.output || '';\nconst researchOutput = $('Research Agent').item.json.output || '';\n\nfunction markdownToHtml(text) {\n  return text\n    .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')\n    .replace(/\\*(.*?)\\*/g, '<em>$1</em>')\n    .replace(/\\n---\\n/g, '<hr>')\n    .replace(/\\n\\n/g, '</p><p>')\n    .replace(/\\n/g, '<br>');\n}\n\nconst html = `\n<div style=\"font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px;\">\n  <h1 style=\"color: #4A90E2;\">🤖 Good morning, ${$('On form submission').item.json['Your Name']}!</h1>\n  <p style=\"color: #666;\">Here is your personalized ARIA daily briefing.</p>\n\n  <div style=\"background: #f8f9fa; border-left: 4px solid #4A90E2; padding: 15px; margin: 20px 0;\">\n    <h2 style=\"color: #333;\">📊 Task Analysis</h2>\n    <p>${markdownToHtml(controllerOutput)}</p>\n  </div>\n\n  <div style=\"background: #fff3f3; border-left: 4px solid #E74C3C; padding: 15px; margin: 20px 0;\">\n    <h2 style=\"color: #333;\">🔴 Prioritized Tasks</h2>\n    <p>${markdownToHtml(prioritizationOutput)}</p>\n  </div>\n\n  <div style=\"background: #f0fff4; border-left: 4px solid #27AE60; padding: 15px; margin: 20px 0;\">\n    <h2 style=\"color: #333;\">🔍 Research Findings</h2>\n    <p>${markdownToHtml(researchOutput)}</p>\n  </div>\n\n  <p style=\"color: #888; font-size: 12px; margin-top: 30px;\">Have a productive day! 🚀<br><em>Sent by ARIA - Your Adaptive Routine Intelligence Assistant</em></p>\n</div>\n`;\n\nreturn [{ json: { html } }];"
+        "jsCode": "const controllerOutput = $('Controller Agent').item.json.output || '';\nconst prioritizationOutput = $('Prioritization Agent').item.json.output || '';\nconst researchOutput = $('Research Agent').item.json.output || '';\nconst feedbackUrl = `http://localhost:5678/form/f7cbc6c3-0ad5-46da-9a1d-d40155f87405?email=${encodeURIComponent($('On form submission').item.json['Your Email'])}`;\n\nfunction markdownToHtml(text) {\n  return text\n    .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')\n    .replace(/\\*(.*?)\\*/g, '<em>$1</em>')\n    .replace(/\\n---\\n/g, '<hr>')\n    .replace(/\\n\\n/g, '</p><p>')\n    .replace(/\\n/g, '<br>');\n}\n\nconst html = `\n<div style=\"font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px;\">\n  <h1 style=\"color: #4A90E2;\">🤖 Good morning, ${$('On form submission').item.json['Your Name']}!</h1>\n  <p style=\"color: #666;\">Here is your personalized ARIA daily briefing.</p>\n  <div style=\"background: #f8f9fa; border-left: 4px solid #4A90E2; padding: 15px; margin: 20px 0;\">\n    <h2 style=\"color: #333;\">📊 Task Analysis</h2>\n    <p>${markdownToHtml(controllerOutput)}</p>\n  </div>\n  <div style=\"background: #fff3f3; border-left: 4px solid #E74C3C; padding: 15px; margin: 20px 0;\">\n    <h2 style=\"color: #333;\">🔴 Prioritized Tasks</h2>\n    <p>${markdownToHtml(prioritizationOutput)}</p>\n  </div>\n  <div style=\"background: #f0fff4; border-left: 4px solid #27AE60; padding: 15px; margin: 20px 0;\">\n    <h2 style=\"color: #333;\">🔍 Research Findings</h2>\n    <p>${markdownToHtml(researchOutput)}</p>\n  </div>\n  <div style=\"text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;\">\n    <p style=\"color: #666; margin-bottom: 10px;\">How was today's briefing?</p>\n    <a href=\"${feedbackUrl}\" style=\"background: #4A90E2; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold;\">\n      ⭐ Rate Today's Briefing\n    </a>\n  </div>\n  <p style=\"color: #888; font-size: 12px; margin-top: 30px;\">Have a productive day! 🚀<br><em>Sent by ARIA - Your Adaptive Routine Intelligence Assistant</em></p>\n</div>\n`;\nreturn [{ json: { html } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -417,11 +417,13 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "bKHHjNTTPzJDGrdj"
   },
-  "versionId": "702ef90b-1ea7-4158-a681-8dda9ffd0997",
+  "versionId": "056c0dd5-5f59-4709-acb4-a0ec15c17f93",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "b8684394eb0d3c2e2b2c9de5ea7ee7b3cfdee0a0a3ed4b35b8bb92fe5af090d5"

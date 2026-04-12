@@ -1,0 +1,115 @@
+{
+  "name": "ARIA Feedback Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "ARIA Daily Briefing Feedback",
+        "formDescription": "Help ARIA learn and improve your future daily briefings!",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "How useful was today's briefing?",
+              "fieldType": "number",
+              "placeholder": "Rate 1 to 5 (5 = extremely useful)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Any comments?",
+              "fieldType": "textarea",
+              "placeholder": "What could ARIA do better?"
+            },
+            {
+              "fieldLabel": "Your Email",
+              "fieldType": "email",
+              "placeholder": "e.g. john@email.com",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5ae54df3-8978-452b-a6dd-4e07320a5ec1",
+      "name": "On form submission",
+      "webhookId": "f7cbc6c3-0ad5-46da-9a1d-d40155f87405"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rating = $('On form submission').item.json['How useful was today\\'s briefing?'];\nconst comments = $('On form submission').item.json['Any comments?'] || 'No comments provided';\n\nconst feedback = {\n  rating: rating,\n  comments: comments,\n  submittedAt: new Date().toISOString(),\n  message: rating >= 4 \n    ? \"Great! ARIA will keep up the good work.\" \n    : rating >= 3 \n    ? \"Thanks! ARIA will try to improve your briefings.\"\n    : \"Sorry to hear that! ARIA will significantly adjust future briefings.\"\n};\n\nreturn [{ json: feedback }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "70825c08-28da-46dd-9513-f0f81e91e630",
+      "name": "Feedback Processor"
+    },
+    {
+      "parameters": {
+        "fromEmail": "mridula.mahendran@gmail.com",
+        "toEmail": "={{ $('On form submission').item.json['Your Email'] }}",
+        "subject": "✅ ARIA Feedback Received - Thank you!",
+        "html": "=<div style=\"font-family: Arial, sans-serif; padding: 20px; max-width: 600px;\">\n  <h2 style=\"color: #4A90E2;\">✅ Thank you for your feedback!</h2>\n  <p>ARIA has recorded your rating of <strong>{{ $('Feedback Processor').item.json.rating }}/5</strong></p>\n  <p>{{ $('Feedback Processor').item.json.message }}</p>\n  <p>Your comments: <em>{{ $('Feedback Processor').item.json.comments }}</em></p>\n  <br>\n  <p>ARIA will use this feedback to improve your next daily briefing.</p>\n  <p><em>— ARIA Feedback System</em></p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "d2fa90c7-0a04-44cf-bf3e-cd7698731022",
+      "name": "Send Email",
+      "webhookId": "e1a1eb29-c9a1-4b38-85da-bb90a6d42929",
+      "credentials": {
+        "smtp": {
+          "id": "62R0n27guZYU4nc8",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Feedback Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Feedback Processor": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3f3a31ef-41de-4fbc-b440-f9816e972a52",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b8684394eb0d3c2e2b2c9de5ea7ee7b3cfdee0a0a3ed4b35b8bb92fe5af090d5"
+  },
+  "id": "EnkokU4ObntSTQ8y",
+  "tags": []
+}
