@@ -1,0 +1,65 @@
+{
+  "name": "ARIA Error Handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4b81893b-6710-4503-b7ab-6ce3bdfa9c30",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "fromEmail": "mridula.mahendran@gmail.com",
+        "toEmail": "={{ $json.execution.workflowData.name }}",
+        "subject": "⚠️ ARIA Error - Something went wrong",
+        "html": "=<div style=\"font-family: Arial, sans-serif; padding: 20px;\">\n  <h2 style=\"color: #E74C3C;\">⚠️ ARIA Encountered an Error</h2>\n  <p>Your ARIA daily briefing could not be completed due to an error.</p>\n  <p><strong>Workflow:</strong> {{ $json.workflow.name }}</p>\n  <p><strong>Error:</strong> {{ $json.execution.error.message }}</p>\n  <p><strong>Time:</strong> {{ $json.execution.startedAt }}</p>\n  <br>\n  <p>Please try submitting your tasks again.</p>\n  <p><em>— ARIA Error Handler</em></p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "fe02a71c-c732-43ee-8e69-d8f6cccc116d",
+      "name": "Send Email",
+      "webhookId": "67831bba-f181-49bc-98a0-f5a1225ad472",
+      "credentials": {
+        "smtp": {
+          "id": "62R0n27guZYU4nc8",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "35dd1a9a-5b79-40ca-980d-5b39d036067a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b8684394eb0d3c2e2b2c9de5ea7ee7b3cfdee0a0a3ed4b35b8bb92fe5af090d5"
+  },
+  "id": "bKHHjNTTPzJDGrdj",
+  "tags": []
+}
